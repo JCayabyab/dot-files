@@ -1,59 +1,145 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'itchyny/lightline.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'dense-analysis/ale'
-Plugin 'ajh17/VimCompletesMe'
-Plugin 'joshdick/onedark.vim'
-Plugin 'tpope/vim-surround'
-Plugin 'sheerun/vim-polyglot'
+" Utility
+Plug 'wesQ3/vim-windowswap'
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc-snippets', {'do': 'npm ci'}
+Plug 'neoclide/coc-tsserver', {'do': 'npm ci'}
+Plug 'neoclide/coc-prettier', {'do': 'npm ci'}
+Plug 'neoclide/coc-eslint', {'do': 'npm ci'}
+Plug 'neoclide/coc-tslint', {'do': 'npm ci'}
+Plug 'neoclide/coc-css', {'do': 'npm ci'}
+Plug 'neoclide/coc-lists', {'do': 'npm ci'} " mru and stuff
+Plug 'neoclide/coc-highlight', {'do': 'npm ci'} " color highlighting
+
+" Typing Code QoL
+Plug 'tpope/vim-surround'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-commentary'
+Plug 'zhou13/vim-easyescape'
+Plug 'jiangmiao/auto-pairs'
+
+" JavaScript/React
+Plug 'othree/yajs.vim'
+Plug 'MaxMEllon/vim-jsx-pretty'
+
+" a e s t h e t i c s
+Plug 'itchyny/lightline.vim'
+Plug 'joshdick/onedark.vim'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
+call plug#end()            " required
+filetype plugin indent on
 "
 " Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+" :PlugList       - lists configured plugins
+" :PlugInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PlugSearch foo - searches for foo; append `!` to refresh local cache
+" :PlugClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+" Formatters
+
+au FileType javascript setlocal formatprg=prettier
+au FileType javascript.jsx setlocal formatprg=prettier
+au FileType typescript setlocal formatprg=prettier\ --parser\ typescript
+au FileType html setlocal formatprg=js-beautify\ --type\ html
+au FileType scss setlocal formatprg=prettier\ --parser\ css
+au FileType css setlocal formatprg=prettier\ --parser\ css
+
 " ALE Settings
 
 let g:ale_linters = {
-\ 'javascript': ['prettier'],
-\ 'markdown': ['markdownlint'],
+\   'python': ['flake8', 'pylint'],
+\   'javascript': ['eslint'],
+\   'vue': ['eslint']
 \}
 
 let g:ale_fixers = {
-\ 'javascript': ['prettier'],
-\ 'markdown': ['markdownlint'],
+  \    'javascript': ['eslint'],
+  \    'typescript': ['prettier', 'tslint'],
+  \    'vue': ['eslint'],
+  \    'scss': ['prettier'],
+  \    'html': ['prettier'],
+  \    'reason': ['refmt']
 \}
+let g:ale_fix_on_save = 1
+
+nnoremap ]r :ALENextWrap<CR>     " move to the next ALE warning / error
+nnoremap [r :ALEPreviousWrap<CR> " move to the previous ALE warning / error
+
+" coc.nvim Settings
+
+" https://github.com/neoclide/coc.nvim#example-vim-configuration
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" gd - go to definition of word under cursor
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+
+" gi - go to implementation
+nmap <silent> gi <Plug>(coc-implementation)
+
+" gr - find references
+nmap <silent> gr <Plug>(coc-references)
+
+" gh - get hint on whatever's under the cursor
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> gh :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 
-" For Neovim 0.1.3 and 0.1.4 - https://github.com/neovim/neovim/pull/2198
-if (has('nvim'))
-  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-endif
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" For Neovim > 0.1.5 and Vim > patch 7.4.1799 - https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
-" Based on Vim patch 7.4.1770 (`guicolors` option) - https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
-" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
+nnoremap <silent> <leader>co  :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>cs  :<C-u>CocList -I symbols<cr>
+
+" List errors
+nnoremap <silent> <leader>cl  :<C-u>CocList locationlist<cr>
+
+" list commands available in tsserver (and others)
+nnoremap <silent> <leader>cc  :<C-u>CocList commands<cr>
+
+" restart when tsserver gets wonky
+nnoremap <silent> <leader>cR  :<C-u>CocRestart<CR>
+
+" view all errors
+nnoremap <silent> <leader>cl  :<C-u>CocList locationlist<CR>
+
+" manage extensions
+nnoremap <silent> <leader>cx  :<C-u>CocList extensions<cr>
+
+" rename the current word in the cursor
+nmap <leader>cr  <Plug>(coc-rename)
+nmap <leader>cf  <Plug>(coc-format-selected)
+vmap <leader>cf  <Plug>(coc-format-selected)
+
+" run code actions
+vmap <leader>ca  <Plug>(coc-codeaction-selected)
+nmap <leader>ca  <Plug>(coc-codeaction-selected)
+
+
+" Color Settings w/ tmux, general
 if (has('termguicolors'))
   set termguicolors
 endif
@@ -74,7 +160,6 @@ colorscheme onedark
 " Keybinds
 
 set tabstop=2
-set softtabstop=2
 set shiftwidth=2
 set expandtab
 set backspace=indent,eol,start
@@ -93,5 +178,17 @@ let mapleader=","
 nnoremap j gj
 nnoremap k gk
 nnoremap B ^
-nnoremap E $
 
+nnoremap <A-F> mzgggqG`z
+
+au FileType * setlocal formatoptions-=cro
+
+" easy-escape
+
+let g:easyescape_chars = { "j": 1, "k": 1 }
+let g:easyescape_timeout = 150
+cnoremap jk <Esc>
+cnoremap kj <Esc>
+
+let &t_SI .= "\<Esc>[5 q"
+let &t_EI .= "\<Esc>[2 q"
