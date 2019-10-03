@@ -21,6 +21,10 @@ Plug 'neoclide/coc-tslint', {'do': 'npm ci'}
 Plug 'neoclide/coc-css', {'do': 'npm ci'}
 Plug 'neoclide/coc-lists', {'do': 'npm ci'} " mru and stuff
 Plug 'neoclide/coc-highlight', {'do': 'npm ci'} " color highlighting
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 " Typing Code QoL
 Plug 'tpope/vim-surround'
@@ -77,8 +81,22 @@ let g:ale_fixers = {
 \}
 let g:ale_fix_on_save = 1
 
+let g:ale_sign_error = 'X'
+let g:ale_sign_warning = '!'
+
 nnoremap ]r :ALENextWrap<CR>     " move to the next ALE warning / error
 nnoremap [r :ALEPreviousWrap<CR> " move to the previous ALE warning / error
+
+" LanguageClient
+
+let g:LanguageClient_serverCommands = {
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ }
+
+nnoremap <leader>l :call LanguageClient_contextMenu()<CR>
+nnoremap K :call LanguageClient#textDocument_hover()<CR>
+nnoremap gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <leader>r :call LanguageClient#textDocument_rename()<CR>
 
 " coc.nvim Settings
 

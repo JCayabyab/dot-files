@@ -1,7 +1,7 @@
-
 caarlos0/jvm
+# lukechilds/zsh-nvm
+# Sparragus/zsh-auto-nvm-use
 djui/alias-tips
-# comments are supported like this
 caarlos0/zsh-mkc
 zsh-users/zsh-completions
 caarlos0/zsh-open-github-pr
@@ -10,7 +10,19 @@ caarlos0/zsh-open-github-pr
 
 # annotations are also allowed:
 robbyrussell/oh-my-zsh path:plugins/aws
+robbyrussell/oh-my-zsh path:plugins/git
+robbyrussell/oh-my-zsh path:plugins/heroku
+robbyrussell/oh-my-zsh path:plugins/pip
+robbyrussell/oh-my-zsh path:plugins/lein
+robbyrussell/oh-my-zsh path:plugins/command-not-found
+robbyrussell/oh-my-zsh path:plugins/autojump
+robbyrussell/oh-my-zsh path:plugins/common-aliases
+robbyrussell/oh-my-zsh path:plugins/compleat
+# robbyrussell/oh-my-zsh path:plugins/npm
+robbyrussell/oh-my-zsh path:plugins/web-search
+clvv/fasd
 denysdovhan/spaceship-prompt
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-history-substring-search
 zsh-users/zsh-autosuggestions
+
