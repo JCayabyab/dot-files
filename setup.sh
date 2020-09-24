@@ -35,12 +35,14 @@ done < "./cask.txt"
 rm ~/.bashrc
 rm ~/.zshrc
 
-# Node setup
-nvm install --lts
-nvm use --lts
-nvm alias default lts/*
-
 # Stow ignore file first
 stow -t ~ stow
 # Stow rest of folders
 stow -t ~ *
+
+source ~/.zshrc
+
+# Node setup
+nvm install --lts
+nvm use --lts
+nvm alias default lts/*

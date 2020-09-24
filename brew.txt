@@ -2,5 +2,4 @@ stow
 tmux
 nvm
 pyenv
-virtualenv
 gh
