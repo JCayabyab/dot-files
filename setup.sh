@@ -31,6 +31,7 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
     brew cask install "$line"
 done < "./cask.txt"
 
+# Remove default files
 rm ~/.bashrc
 rm ~/.zshrc
 
