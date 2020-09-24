@@ -3,3 +3,4 @@ tmux
 nvm
 pyenv
 virtualenv
+gh
