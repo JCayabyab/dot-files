@@ -35,10 +35,10 @@ done < "./cask.txt"
 rm ~/.bashrc
 rm ~/.zshrc
 
-# Stow ignore file first
+# Stow
 stow -t ~ stow
-# Stow rest of folders
-stow -t ~ *
+stow -t ~ nvim
+stow -t ~ zsh
 
 source ~/.zshrc
 
