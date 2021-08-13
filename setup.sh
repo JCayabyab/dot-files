@@ -52,4 +52,4 @@ vim +PlugInstall +qall
 # Node setup
 nvm install --lts
 nvm use --lts
-nvm alias default lts/*
+nvm alias default 'lts/*'
