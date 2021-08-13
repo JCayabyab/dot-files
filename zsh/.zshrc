@@ -1,8 +1,5 @@
-# Starship terminal
-eval "$(starship init zsh)"
-
 # antigen
-source /usr/local/share/antigen/antigen.zsh
+source $(brew --prefix)/share/antigen/antigen.zsh
 
 # oh-my-zsh
 antigen use oh-my-zsh
@@ -40,3 +37,6 @@ export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 export PATH="/usr/local/opt/terraform@0.11/bin:$PATH"
  [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+
+# Starship terminal
+eval "$(starship init zsh)"

@@ -4,3 +4,5 @@ nvm
 pyenv
 gh
 autojump
+starship
+antigen
