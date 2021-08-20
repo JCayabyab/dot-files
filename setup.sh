@@ -10,18 +10,16 @@ defaults write com.apple.finder AppleShowAllFiles YES
 # Disable mouse acceleration
 defaults write .GlobalPreferences com.apple.mouse.scaling -1
 
-# TODO: these both hijack the shell session and don't let the rest of this file complete
-# Install zsh
-#sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# TODO: This hijacks the shell and doesn't let rest of script complete - find way to automate
 # Install brew
-#/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # setup GH token here
 # https://github.com/settings/tokens/new?scopes=gist,public_repo&description=Homebrew
 #and then set the token as: export HOMEBREW_GITHUB_API_TOKEN="your_new_token"
 
 # Install all homebrew packages
-# TODO: use a brewfile https://github.com/ahmedelgabri/dotfiles/blob/master/homebrew/Brewfile
+# TODO: Use a brewfile /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 while IFS='' read -r line || [[ -n "$line" ]]; do
     brew install "$line"
 done < "./brew.txt"
