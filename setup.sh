@@ -40,6 +40,10 @@ stow -t ~ stow
 stow -t ~ nvim
 stow -t ~ zsh
 
+# pyenv
+echo 'eval "$(pyenv init --path)"' >> ~/.zprofile
+
+source ~/.zprofile
 source ~/.zshrc
 
 # Vim setup
