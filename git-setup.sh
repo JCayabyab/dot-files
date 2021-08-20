@@ -6,12 +6,13 @@ gitsetup() {
     # Use current branch only when doing git push
     git config --global push.default current
 
-    echo "What's your git name?"
-    read GIT_SETUP_NAME -e
-    git config --global user.name $GIT_SETUP_NAME
+    echo "What's your git name? (e.g., Jofred Cayabyab)"
+    read GIT_SETUP_NAME
 
-    echo "What's your git email?"
+    echo "What's your git email? (e.g., jjay.cayabyab@gmail.com)"
     read GIT_SETUP_EMAIL
+
+    git config --global user.name $GIT_SETUP_NAME
     git config --global user.email $GIT_SETUP_EMAIL
 
     echo "Now configuring SSH keys..."
@@ -26,7 +27,8 @@ gitsetup() {
     echo "Now copying SSH key to clipboard..."
     pbcopy < ~/.ssh/id_rsa.pub
 
-    echo "Use this SSH key in GitHub settings -> SSH and GPG Keys."
+    echo "Paste this SSH key in GitHub settings -> SSH and GPG Keys."
+    echo "https://github.com/settings/keys"
 }
 
 gitsetup
