@@ -27,6 +27,7 @@ gitsetup() {
     echo "Now copying SSH key to clipboard..."
     pbcopy < ~/.ssh/id_rsa.pub
 
+    echo "Your SSH public key has been copied to your clipboard."
     echo "Paste this SSH key in GitHub settings -> SSH and GPG Keys."
     echo "https://github.com/settings/keys"
 }
