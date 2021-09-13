@@ -188,8 +188,8 @@ nnoremap <Leader>q :q<CR>
 " -- easy-escape.vim settings -- set jk and kj as <Esc> in Insert mode
 let g:easyescape_chars = { "j": 1, "k": 1 }
 let g:easyescape_timeout = 100
-cnoremap jk <Esc>`^
-cnoremap kj <Esc>`^
+cnoremap jk <Esc>
+cnoremap kj <Esc>
 
 " -- easymotion settings --
 " <Leader>f{char} to move to {char}
