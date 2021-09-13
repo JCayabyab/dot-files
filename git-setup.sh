@@ -5,6 +5,8 @@ gitsetup() {
 
     # Use current branch only when doing git push
     git config --global push.default current
+    # Rebase when pulling instead of merging
+    git config --global pull.rebase true
 
     echo "What's your git name? (e.g., Jofred Cayabyab)"
     read GIT_SETUP_NAME
