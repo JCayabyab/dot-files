@@ -1,7 +1,6 @@
 stow
 tmux
 nvm
-pyenv
 gh
 autojump
 starship

@@ -26,8 +26,11 @@ done < "./brew.txt"
 
 # Install all cask packages
 while IFS='' read -r line || [[ -n "$line" ]]; do
-    brew cask install "$line"
+    brew install --cask "$line"
 done < "./cask.txt"
+
+# Install all pip packages (conda version of pip)
+pip install -r ./pip.txt
 
 # Remove default files
 rm ~/.bashrc
@@ -37,9 +40,6 @@ rm ~/.zshrc
 stow -t ~ stow
 stow -t ~ nvim
 stow -t ~ zsh
-
-# pyenv
-echo 'eval "$(pyenv init --path)"' >> ~/.zprofile
 
 source ~/.zprofile
 source ~/.zshrc

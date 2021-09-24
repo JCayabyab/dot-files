@@ -27,10 +27,8 @@ alias vimrc="vim ~/.vimrc"
 # for the zshrc common-aliases command
 export EDITOR="nvim"
 
-# pyenv
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+# anaconda
+export PATH="/usr/local/anaconda3/bin:$PATH"
 
 # NVM
 export NVM_DIR=~/.nvm
