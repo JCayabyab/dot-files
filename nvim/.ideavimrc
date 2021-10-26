@@ -1,1 +1,4 @@
 source ~/.vimrc
+
+inoremap jk <Esc>
+inoremap kj <Esc>
