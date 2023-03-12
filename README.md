@@ -8,7 +8,7 @@ This repo is designed to make MacOS development setup as painless as possible. I
 2. Clone this repo and `cd` into it
 3. Run `sudo chmod +rwx setup.sh` then `zsh ./setup.sh`
    - Some commands might need user interaction, so monitor the script's execution.
-4. In `Preferences -> Profiles` of iTerm2, import `iterm2.json` profile
+4. In `Preferences -> Profiles` of iTerm2, click on `Other Actions... -> Import JSON Profiles...` and import `iterm2.json` profile
 5. Perform GitHub setup using the GitHub CLI:
    a. `gh auth login`
    b. `gh auth setup-git`
