@@ -33,6 +33,9 @@ source $(brew --prefix nvm)/nvm.sh
 export PATH="/usr/local/opt/terraform@0.11/bin:$PATH"
  [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
+# Misc
+alias resource="source ~/.zshrc"
+
 # Starship terminal
 eval "$(starship init zsh)"
 
