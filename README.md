@@ -22,3 +22,20 @@ After you make a change to a file:
 
 - The IntelliJ `~/.ideavimrc` does not elegantly source `~/.vimrc`. For example, pressing `f` types out `⏎overwin-f)`. Separating the `~/.vimrc` file into multiple files would make this easier.
 - There's a weird issue with install the LTS version in the Bash script. The issue is found (here)[https://github.com/nvm-sh/nvm/issues/2963] and seems to be related to the `common-aliases` library with oh-my-zsh. This should be fixed soon as per (this)[https://github.com/nvm-sh/nvm/issues/2963#issuecomment-1423538863] comment, but a quick workaround would be to comment out common-aliases in `~/.zshrc`, then rerun `setup.sh`.
+
+# General Setup
+
+## Wallpapers
+I typically like dynamic wallpapers. Here are some that I like to use:
+- [Restaurant Street](https://dynamicwallpaper.club/wallpaper/0noc4ol6rzbd)
+- [Himitsu House](https://dynamicwallpaper.club/wallpaper/hpe7uzrc1lh)
+- [Room](https://dynamicwallpaper.club/wallpaper/ljiirej5pwc)
+- [Tokyo Street](https://dynamicwallpaper.club/wallpaper/qsw4jd50k9e)
+
+## Applications
+
+### Things
+Install from the App Store (or other alternative sources).
+
+### Magnet
+Install from the App Store (or other alternative sources).
