@@ -4,20 +4,16 @@ This repo is designed to make MacOS development setup as painless as possible. I
 
 ## Setup
 
-1. Install homebrew: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
-2. Clone this repo and `cd` into it
-3. Run `sudo chmod +rwx setup.sh` then `zsh ./setup.sh`
+1. Clone (or manually download) this repo and `cd` into the `setup` folder
+2. Run `sudo chmod +x setup.sh` then `zsh setup.sh`
    - Some commands might need user interaction, so monitor the script's execution.
-4. In `Preferences -> Profiles` of iTerm2, click on `Other Actions... -> Import JSON Profiles...` and import `iterm2.json` profile
-5. Perform GitHub setup using the GitHub CLI:
-   a. `gh auth login`
-   b. `gh auth setup-git`
+3. In `Preferences -> Profiles` of iTerm2, click on `Other Actions... -> Import JSON Profiles...` and import the `iterm2.json` profile
 
 ## Syncing settings after file change
 
 After you make a change to a file:
 
-1. Re-run `zsh ./setup.sh` script
+1. Re-run `setup.sh` script in `setup` folder
 2. Commit changes to git repo
 
 **Note**: The files in the folders are symlinked to their respective places, so any changes made to files outside of this folder will be automatically updated in this folder.
