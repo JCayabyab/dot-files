@@ -1,21 +1,45 @@
+# Function to display commands
+exe() { echo "$ $@" ; "$@" ; }
+
 echo "-- MacOS Setup --"
 
 echo "Removing Message of the day prompt..."
-echo "> touch $HOME/.hushlogin"
-touch $HOME/.hushlogin
+exe touch $HOME/.hushlogin
 
 echo "Installing command line tools if not installed already..."
-echo "> xcode-select --install"
-xcode-select --install
+exe xcode-select --install
 
-echo "Showing hidden files in Finder..."
-echo "> defaults write com.apple.finder AppleShowAllFiles YES"
-defaults write com.apple.finder AppleShowAllFiles YES
+echo "Fixing key-repeating..."
+exe defaults write NSGlobalDomain "ApplePressAndHoldEnabled" -bool "false" 
+exe defaults write -g InitialKeyRepeat -int 10
+exe defaults write -g KeyRepeat -int 2
 
-echo "Enable key-repeating globally"
-echo "defaults write -g ApplePressAndHoldEnabled -bool false"
-defaults write -g ApplePressAndHoldEnabled -bool false
+echo "Fixing screenshots..."
+exe defaults write com.apple.screencapture "disable-shadow" -bool "true" 
+exe mkdir -p ~/Pictures/screenshots
+exe defaults write com.apple.screencapture "location" -string "~/Pictures/screenshots"
+killall SystemUIServer
+
+echo "Fixing Finder..."
+exe defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true"
+exe defaults write com.apple.finder "QuitMenuItem" -bool "true"
+exe defaults write com.apple.finder "AppleShowAllFiles" -bool "true"
+exe defaults write com.apple.finder "ShowPathbar" -bool "true"
+# Change default view to List view
+exe defaults write com.apple.finder "FXPreferredViewStyle" -string "Nlsv"
+# Put folders first in views
+exe defaults write com.apple.finder "_FXSortFoldersFirst" -bool "true"
+# Change search scope to current folder
+exe defaults write com.apple.finder "FXDefaultSearchScope" -string "SCcf"
+exe defaults write com.apple.finder "FXEnableExtensionChangeWarning" -bool "false"
+exe defaults write NSGlobalDomain "NSDocumentSaveNewDocumentsToCloud" -bool "false"
+exe defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
+killall Finder
+
+echo "Fixing Dock..."
+exe defaults write com.apple.dock "enable-spring-load-actions-on-all-items" -bool "true"
+exe defaults write com.apple.dock "autohide" -bool "false"
+killall Dock
 
 echo "Disabling mouse acceleration..."
-echo "> defaults write .GlobalPreferences com.apple.mouse.scaling -1"
-defaults write .GlobalPreferences com.apple.mouse.scaling -1
+exe defaults write .GlobalPreferences com.apple.mouse.scaling -1

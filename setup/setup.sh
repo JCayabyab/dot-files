@@ -1,5 +1,3 @@
-# Mostly from https://github.com/shakeelmohamed/stow-dotfiles/blob/master/setup.sh
-
 source mac.sh
 source homebrew.sh
 source stow.sh
