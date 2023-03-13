@@ -33,12 +33,11 @@ exe defaults write com.apple.finder "_FXSortFoldersFirst" -bool "true"
 exe defaults write com.apple.finder "FXDefaultSearchScope" -string "SCcf"
 exe defaults write com.apple.finder "FXEnableExtensionChangeWarning" -bool "false"
 exe defaults write NSGlobalDomain "NSDocumentSaveNewDocumentsToCloud" -bool "false"
-exe defaults write com.apple.universalaccess "showWindowTitlebarIcons" -bool "true"
 killall Finder
 
 echo "Fixing Dock..."
 exe defaults write com.apple.dock "enable-spring-load-actions-on-all-items" -bool "true"
-exe defaults write com.apple.dock "autohide" -bool "false"
+exe defaults write com.apple.dock "autohide" -bool "true"
 killall Dock
 
 echo "Disabling mouse acceleration..."
