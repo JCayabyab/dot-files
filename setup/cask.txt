@@ -2,3 +2,4 @@ anaconda
 scroll-reverser
 spotify
 notion
+messenger
