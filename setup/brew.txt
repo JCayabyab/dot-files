@@ -6,3 +6,4 @@ autojump
 starship
 antigen
 neovim
+fzf

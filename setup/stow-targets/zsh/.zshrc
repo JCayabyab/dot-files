@@ -11,7 +11,7 @@ antigen bundle pip
 antigen bundle aws
 antigen bundle command-not-found
 antigen bundle autojump
-antigen bundle common-aliases
+# antigen bundle common-aliases -- currently a bug with installing node versions with nvm
 antigen bundle compleat
 antigen bundle git-extras
 antigen bundle npm
@@ -35,6 +35,19 @@ export PATH="/usr/local/opt/terraform@0.11/bin:$PATH"
 
 # Misc
 alias resource="source ~/.zshrc"
+alias zshrc="vim ~/.zshrc"
+
+# Killing everything running on a port
+findandkill() { 
+  port=$(lsof -n -i4TCP:$1 | grep LISTEN | awk '{ print $2 }')
+  kill -9 $port
+}
+alias killport=findandkill
+
+# fuzzy search git checkout
+gch() {
+ git checkout “$(git branch — all | fzf| tr -d ‘[:space:]’)”
+}
 
 # Starship terminal
 eval "$(starship init zsh)"

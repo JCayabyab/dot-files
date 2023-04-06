@@ -3,3 +3,4 @@ scroll-reverser
 spotify
 notion
 messenger
+linearmouse
