@@ -49,6 +49,11 @@ gch() {
  git checkout "$(git branch --all | fzf | tr -d '[:space:]')"
 }
 
+# remove all local branches that have been merged remotely
+gremovelocalmerged() {
+  git fetch -p ; git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' >/tmp/merged-branches && vim /tmp/merged-branches && xargs git branch -D </tmp/merged-branches && rm /tmp/merged-branches
+}
+
 # Starship terminal
 eval "$(starship init zsh)"
 
