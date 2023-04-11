@@ -50,8 +50,9 @@ gch() {
 }
 
 # remove all local branches that have been merged remotely
-gremovelocalmerged() {
-  git fetch -p ; git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' >/tmp/merged-branches && vim /tmp/merged-branches && xargs git branch -D </tmp/merged-branches && rm /tmp/merged-branches
+gitcleanmerged() {
+  # not sure why vim doesn't work with plugins, bypassing vimrc
+  git fetch -p ; git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' >/tmp/merged-branches && vim -u NONE /tmp/merged-branches && xargs git branch -D </tmp/merged-branches && rm /tmp/merged-branches
 }
 
 # Starship terminal
