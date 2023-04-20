@@ -18,6 +18,7 @@ antigen bundle npm
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
+antigen bundle djui/alias-tips
 
 antigen apply
 
@@ -54,6 +55,8 @@ gitcleanmerged() {
   # not sure why vim doesn't work with plugins, bypassing vimrc
   git fetch -p ; git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' >/tmp/merged-branches && vim -u NONE /tmp/merged-branches && xargs git branch -D </tmp/merged-branches && rm /tmp/merged-branches
 }
+
+alias gclmg="gitcleanmerged"
 
 # Starship terminal
 eval "$(starship init zsh)"
