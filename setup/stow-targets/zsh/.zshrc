@@ -11,13 +11,19 @@ antigen bundle pip
 antigen bundle aws
 antigen bundle command-not-found
 antigen bundle autojump
-# antigen bundle common-aliases -- currently a bug with installing node versions with nvm
 antigen bundle compleat
 antigen bundle git-extras
 antigen bundle npm
+antigen bundle 1password
+antigen bundle sudo
+antigen bundle dirhistory
+antigen bundle jsontools
+antigen bundle macos
+# antigen bundle common-aliases -- currently a bug with installing node versions with nvm
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
+antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle djui/alias-tips
 
 antigen apply
