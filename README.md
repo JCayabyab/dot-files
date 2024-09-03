@@ -26,7 +26,9 @@ After you make a change to a file:
 # General Setup
 
 ## Wallpapers
+
 I typically like dynamic wallpapers. Here are some that I like to use:
+
 - [Restaurant Street](https://dynamicwallpaper.club/wallpaper/0noc4ol6rzbd)
 - [Himitsu House](https://dynamicwallpaper.club/wallpaper/hpe7uzrc1lh)
 - [Room](https://dynamicwallpaper.club/wallpaper/ljiirej5pwc)
@@ -35,7 +37,9 @@ I typically like dynamic wallpapers. Here are some that I like to use:
 ## Applications
 
 ### Things
+
 Install from the App Store (or other alternative sources).
 
-### Magnet
+### Raycast
+
 Install from the App Store (or other alternative sources).

@@ -1,3 +1,6 @@
+# Add Homebrew to PATH
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # antigen
 source $(brew --prefix)/share/antigen/antigen.zsh
 
