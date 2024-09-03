@@ -51,6 +51,86 @@ findandkill() {
 }
 alias killport=findandkill
 
+# Lido specific
+findandkill_lido() {
+  port=$(lsof -n -i4TCP:3000 | grep LISTEN | awk '{ print $2 }')
+  kill -9 $port
+  port=$(lsof -n -i4TCP:4000 | grep LISTEN | awk '{ print $2 }')
+  kill -9 $port
+  port=$(lsof -n -i4TCP:3010 | grep LISTEN | awk '{ print $2 }')
+  kill -9 $port
+  port=$(lsof -n -i4TCP:3011 | grep LISTEN | awk '{ print $2 }')
+  kill -9 $port
+}
+
+dryrun_proddeploy() {
+  curr_pwd=$PWD
+
+  cd /Users/jofred/Coding/Lido/lido-app
+  curr_branch=$(git rev-parse --abbrev-ref HEAD)
+  STAGINGSHA=$(../lido-tools/kube/get-shas staging | grep lido-app | sed 's/lido-app://')
+  PRODUCTIONSHA=$(../lido-tools/kube/get-shas production | grep lido-app | sed 's/lido-app://') 
+  echo $STAGINGSHA
+  echo $PRODUCTIONSHA
+
+  stash_output=$(git stash 2>&1)
+
+  git checkout staging
+  git fetch origin
+  git diff --name-only $PRODUCTIONSHA $STAGINGSHA | grep server/src/db/migrations
+  echo "If the output is empty, there are no DB migrations. Double-check the SHAs on GitHub then run proddeploy"
+
+  git checkout $curr_branch
+
+  if [[ $stash_output != *"No local changes to save"* ]]; then
+    git stash pop
+  fi
+
+  cd $curr_pwd
+}
+
+proddeploy() {
+  read "REPLY?Did you mean to start a prod deploy? Type Y to continue: "
+
+
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    curr_pwd=$PWD
+
+    echo "Starting prod deploy..."
+    cd /Users/jofred/Coding/Lido/lido-app
+    STAGINGSHA=$(../lido-tools/kube/get-shas staging | grep lido-app | sed 's/lido-app://')
+    PRODUCTIONSHA=$(../lido-tools/kube/get-shas production | grep lido-app | sed 's/lido-app://') 
+    echo $STAGINGSHA
+    echo $PRODUCTIONSHA
+
+    stash_output=$(git stash 2>&1)
+    git checkout staging
+    git fetch origin
+    git diff --name-only $PRODUCTIONSHA $STAGINGSHA | grep server/src/db/migrations
+
+    git checkout production
+    git fetch origin
+    git reset $STAGINGSHA --hard
+    git push -f
+
+    echo "Double check the SHAs on GitHub. Then, wait for prod deploy to finish and run \"watch kubectl get pods --context production\" to check executor pods"
+
+    git checkout $curr_branch
+    if [[ $stash_output != *"No local changes to save"* ]]; then
+      git stash pop
+    fi
+    cd $curr_pwd
+  else
+    echo "Prod deploy canceled."
+  fi
+}
+
+alias lidopd=proddeploy
+alias lidodrpd=dryrun_proddeploy
+
+alias killlido=findandkill_lido
+
 # fuzzy search git checkout
 gch() {
  git checkout "$(git branch --all | fzf | tr -d '[:space:]')"
@@ -58,8 +138,13 @@ gch() {
 
 # remove all local branches that have been merged remotely
 gitcleanmerged() {
-  # not sure why vim doesn't work with plugins, bypassing vimrc
-  git fetch -p ; git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' >/tmp/merged-branches && vim -u NONE /tmp/merged-branches && xargs git branch -D </tmp/merged-branches && rm /tmp/merged-branches
+    git fetch -p
+    git branch -vv | awk '/\[origin\/.*: gone\]/{print $1}' > /tmp/merged-branches
+    vim -u NONE /tmp/merged-branches
+    while read branch; do
+        git branch -D "$branch"
+    done < /tmp/merged-branches
+    rm /tmp/merged-branches
 }
 
 alias gclmg="gitcleanmerged"
@@ -82,3 +167,17 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
+# pnpm
+export PNPM_HOME="/Users/jofred/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# sed
+export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+# gcloud auth
+export PATH=$PATH:/opt/homebrew/share/google-cloud-sdk/bin
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True

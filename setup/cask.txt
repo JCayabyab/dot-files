@@ -1,6 +1,11 @@
 anaconda
+docker
+google-cloud-sdk
+linearmouse
+messenger
+notion
+obsidian
 scroll-reverser
 spotify
-notion
-messenger
-linearmouse
+visual-studio-code
+vlc

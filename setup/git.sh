@@ -9,6 +9,8 @@ exe gh auth setup-git
 git config --global push.default current
 # Rebase when pulling instead of merging
 git config --global pull.rebase true
+# Auto setup remote when running push
+git config --global --add --bool push.autoSetupRemote true
 
 DEFAULT_NAME="Jofred Cayabyab"
 DEFAULT_EMAIL="jofred.cayabyab1@ucalgary.ca"
